@@ -1,19 +1,16 @@
 # codebase-docs
 
-Automated codebase documentation generator with progressive disclosure for Claude Code.
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-## Overview
+**Automated codebase documentation with progressive disclosure for Claude Code.**
 
-This plugin scans your codebase using parallel subagents, generates structured documentation, and maintains a lightweight index in CLAUDE.md. Agents can then navigate documentation progressively — reading only what they need, when they need it.
+Scans your codebase with parallel subagents, generates structured docs, and maintains a lightweight index in CLAUDE.md. Agents navigate progressively — index first, specific docs on demand, source code only when needed.
 
-## Features
+## Why?
 
-- **Full documentation initialization** (`/codebase-docs:init`) — Parallel scan of all modules, architecture patterns, and API endpoints
-- **Incremental updates** (`/codebase-docs:update`) — Only re-scan changed modules
-- **Progressive reading** (`doc-read` skill) — Auto-activates when agents need to understand the codebase
-- **File organization** (`/codebase-docs:organize`) — Reclassify misplaced docs and tests
+Without it, agents burn context reading source files to understand your codebase. With it, agents read a one-line-per-doc index in CLAUDE.md and load only relevant docs. Less context waste, faster answers.
 
-## Installation
+## Install
 
 In Claude Code, run these **one at a time**:
 
@@ -27,37 +24,87 @@ Then:
 /plugin install codebase-docs
 ```
 
+## Features
+
+| Feature | Command | What it does |
+|---------|---------|-------------|
+| Full init | `/codebase-docs:init` | Parallel scan of all modules, architecture patterns, API endpoints |
+| Incremental update | `/codebase-docs:update` | Only re-scans changed modules |
+| File organization | `/codebase-docs:organize` | Reclassify misplaced docs and tests (dry-run by default) |
+| Progressive reading | _auto-activating skill_ | Agents read index → load doc on demand → source code last |
+
+### Progressive Disclosure
+
+The core idea — agents never load everything at once:
+
+```
+Level 1: CLAUDE.md index     ← Always in context (one line per doc)
+Level 2: Individual doc file ← Loaded on demand
+Level 3: Source code          ← Last resort
+```
+
+### Parallel Scanning
+
+`/codebase-docs:init` launches subagents in parallel:
+
+```
+├── module-scanner  ×N  →  docs/design/*.md       (one per module)
+├── pattern-scanner     →  docs/design/architecture-overview.md
+└── api-scanner         →  docs/api/api-reference.md
+└── generate-index.py   →  CLAUDE.md doc index updated
+```
+
+For a medium-sized project (~10k lines), init takes 2-5 minutes.
+
+### Incremental Updates
+
+`/codebase-docs:update` detects changed modules via git diff and only re-scans those. Keeps `.docs-manifest.json` to track generation state.
+
+### Auto Hooks
+
+| Hook | When | What |
+|------|------|------|
+| SessionStart | Session starts | Checks doc freshness (>24h old or source newer). Suggests update. |
+| Stop | Session ends | Detects which documented modules changed. Suggests sync. |
+
+### doc-organize (repo-cleanser integrated)
+
+Scans for misplaced docs, test files outside `tests/`, duplicate or orphaned docs. Shows dry-run preview before moving anything. Always uses `git mv` to preserve history.
+
 ## Usage
 
-### First-time setup
-
-```
+```bash
+# First time
 /codebase-docs:init
-```
 
-This scans your entire codebase and generates documentation. For a medium-sized project, this takes 2-5 minutes.
-
-### After making changes
-
-```
+# After making changes
 /codebase-docs:update
+
+# Organize scattered files (dry-run first)
+/codebase-docs:organize
+/codebase-docs:organize --no-dry-run    # execute moves
+
+# Force full re-scan
+/codebase-docs:update --force
 ```
 
-Only re-scans modules that have changed since the last generation.
-
-### Organize scattered files
+## Generated Output
 
 ```
-/codebase-docs:organize --dry-run
+your-project/
+├── .docs-manifest.json                    # Tracks generation state
+├── CLAUDE.md                              # Updated with doc index
+├── docs/
+│   ├── design/
+│   │   ├── architecture-overview.md       # System architecture
+│   │   ├── task.md                        # Module doc
+│   │   └── ...
+│   ├── api/
+│   │   └── api-reference.md              # All endpoints
+│   └── reference/
 ```
 
-Shows what would be moved. Remove `--dry-run` to execute.
-
-### How agents use the docs
-
-Agents automatically activate the `doc-read` skill when they need to understand the codebase. They read the lightweight index in CLAUDE.md first, then load specific docs on demand.
-
-## Directory Structure
+## Architecture
 
 ```
 codebase-docs/
@@ -68,49 +115,24 @@ codebase-docs/
 │   ├── pattern-scanner.md     # Detects architecture patterns
 │   └── api-scanner.md         # Maps API endpoints
 ├── hooks/
-│   ├── hooks.json             # SessionStart + Stop hooks
-│   └── scripts/
+│   └── hooks.json             # SessionStart + Stop hooks
 ├── scripts/
 │   ├── generate-index.py      # Generates CLAUDE.md doc index
 │   ├── detect-changes.py      # Detects changed modules
 │   └── check-staleness.py     # Checks if docs are stale
-├── skills/
-│   ├── doc-init/              # Full initialization skill
-│   ├── doc-update/            # Incremental update skill
-│   ├── doc-read/              # Progressive reading skill
-│   └── doc-organize/          # File organization skill
-└── README.md
+└── skills/
+    ├── doc-init/              # Full initialization
+    ├── doc-update/            # Incremental update
+    ├── doc-read/              # Progressive reading (auto-activating)
+    └── doc-organize/          # File organization
 ```
-
-## Generated Output
-
-After running `/codebase-docs:init`, your project will have:
-
-```
-your-project/
-├── .docs-manifest.json                    # Tracks generation state
-├── CLAUDE.md                              # Updated with doc index
-├── docs/
-│   ├── design/
-│   │   ├── architecture-overview.md       # System architecture
-│   │   ├── task.md                        # Module doc
-│   │   ├── project.md                     # Module doc
-│   │   └── ...
-│   ├── api/
-│   │   └── api-reference.md              # All endpoints
-│   └── reference/                         # Existing reference docs
-```
-
-## Hooks
-
-### SessionStart
-Checks if documentation is stale (>24h old or source code is newer). If stale, suggests running `/codebase-docs:update`.
-
-### Stop
-Detects which source files changed during the session. If any documented modules were modified, suggests syncing documentation.
 
 ## Requirements
 
 - Python 3.10+
 - Git (for change detection)
 - Claude Code CLI
+
+## License
+
+MIT
