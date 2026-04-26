@@ -11,6 +11,7 @@
 | 插件 | 说明 | 版本 |
 |------|------|------|
 | [codebase-docs](codebase-docs/) | 自动化代码库文档生成，支持渐进式加载 | v0.1.0 |
+| [openturtle-plugin](openturtle-plugin/) | OpenTurtle OS 无头管理 — 17 种资源 CRUD、SSE 流式输出、工作流、待办任务 | v0.1.0 |
 
 ## 快速开始
 

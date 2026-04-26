@@ -11,6 +11,7 @@ English | [中文](README_CN.md)
 | Plugin | Description | Version |
 |--------|-------------|---------|
 | [codebase-docs](codebase-docs/) | Automated codebase documentation with progressive disclosure | v0.1.0 |
+| [openturtle-plugin](openturtle-plugin/) | OpenTurtle OS headless management — 17 resource types CRUD, SSE streaming, workflows, todos | v0.1.0 |
 
 ## Quick Start
 
