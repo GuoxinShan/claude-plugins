@@ -1,5 +1,7 @@
 # openturtle-plugin
 
+English | [中文](README_CN.md)
+
 OpenTurtle OS headless management plugin for Claude Code. Complete backend control via CLI scripts, SSE streaming, strategic workflows, todo management, project file access, and ERP data queries.
 
 ## Installation
