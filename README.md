@@ -10,15 +10,19 @@ Personal Claude Code plugins and skills collection by [GuoxinShan](https://githu
 
 ## Install
 
-### Option 1: `/plugins` command (recommended)
+### Option 1: `/plugin` commands (recommended)
 
-In Claude Code, run:
+In Claude Code, run these **one at a time**:
 
 ```
-/plugins install GuoxinShan/claude-plugins
+/plugin marketplace add https://github.com/GuoxinShan/claude-plugins
 ```
 
-Then enable the plugin and restart.
+Then:
+
+```
+/plugin install codebase-docs
+```
 
 ### Option 2: Manual config
 

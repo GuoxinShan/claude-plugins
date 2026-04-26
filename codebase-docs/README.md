@@ -15,11 +15,17 @@ This plugin scans your codebase using parallel subagents, generates structured d
 
 ## Installation
 
+In Claude Code, run these **one at a time**:
+
 ```
-/plugins install GuoxinShan/claude-plugins
+/plugin marketplace add https://github.com/GuoxinShan/claude-plugins
 ```
 
-Then enable `codebase-docs` and restart Claude Code.
+Then:
+
+```
+/plugin install codebase-docs
+```
 
 ## Usage
 
