@@ -2,6 +2,8 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
+English | [中文](README_CN.md)
+
 > Claude Code plugins by [GuoxinShan](https://github.com/GuoxinShan).
 
 ## Plugins

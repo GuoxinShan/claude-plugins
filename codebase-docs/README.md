@@ -2,6 +2,8 @@
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
+English | [中文](README_CN.md)
+
 **Automated codebase documentation with progressive disclosure for Claude Code.**
 
 Scans your codebase with parallel subagents, generates structured docs, and maintains a lightweight index in CLAUDE.md. Agents navigate progressively — index first, specific docs on demand, source code only when needed.
