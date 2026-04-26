@@ -6,10 +6,16 @@ OpenTurtle OS headless management plugin for Claude Code. Complete backend contr
 
 ## Installation
 
-Copy to your Claude Code plugins directory, or install via marketplace:
+In Claude Code, run these **one at a time**:
 
-```bash
-claude --plugin-dir /path/to/openturtle-plugin
+```
+/plugin marketplace add https://github.com/GuoxinShan/claude-plugins
+```
+
+Then:
+
+```
+/plugin install openturtle-plugin
 ```
 
 ## Quick Start
