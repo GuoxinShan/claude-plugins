@@ -19,6 +19,18 @@
       },
       "category": "productivity",
       "tags": ["documentation", "codebase-analysis", "progressive-disclosure"]
+    },
+    {
+      "name": "openturtle-plugin",
+      "source": "./openturtle-plugin",
+      "description": "OpenTurtle OS headless management — complete backend control via CLI scripts, SSE streaming, strategic workflows, todo management, project file access, and ERP data queries",
+      "version": "0.1.0",
+      "author": {
+        "name": "GuoxinShan",
+        "email": "rockshan3906@gmail.com"
+      },
+      "category": "productivity",
+      "tags": ["openturtle", "workflow", "agent", "task-management", "cli"]
     }
   ]
 }

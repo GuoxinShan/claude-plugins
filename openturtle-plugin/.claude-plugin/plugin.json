@@ -1,0 +1,11 @@
+{
+  "name": "openturtle-plugin",
+  "version": "0.1.0",
+  "description": "OpenTurtle OS headless management plugin — complete backend control via CLI scripts, SSE streaming, strategic workflows, todo management, project file access, and ERP data queries.",
+  "author": {
+    "name": "GuoxinShan",
+    "email": "rockshan3906@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["openturtle", "workflow", "agent", "task-management", "strategic-analysis", "cli"]
+}
