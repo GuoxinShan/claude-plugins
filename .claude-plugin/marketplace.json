@@ -1,0 +1,14 @@
+{
+  "name": "claude-plugins",
+  "description": "Personal Claude Code plugins collection",
+  "owner": {
+    "name": "GuoxinShan"
+  },
+  "plugins": [
+    {
+      "name": "codebase-docs",
+      "source": "./codebase-docs",
+      "description": "Automated codebase documentation with progressive disclosure"
+    }
+  ]
+}
