@@ -1,0 +1,9 @@
+{
+  "name": "codebase-docs",
+  "version": "0.1.0",
+  "description": "Automated codebase documentation generator with progressive disclosure — scan, organize, index, and navigate project docs",
+  "author": {
+    "name": "GuoxinShan"
+  },
+  "keywords": ["documentation", "codebase-analysis", "progressive-disclosure", "index", "agent-knowledge"]
+}
