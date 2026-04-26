@@ -20,20 +20,16 @@ Then:
 
 ## Quick Start
 
-```bash
-# 1. Login (auto-saves session to ~/.openturtle/session.json)
-python scripts/otcli.py auth login --base-url http://localhost:8000 --username admin --password pass
+After installation, just tell Claude what you need:
 
-# 2. All subsequent commands auto-load session
-python scripts/otcli.py workflow list
-python scripts/otcli.py task list --project-id <pid>
-python scripts/otcli.py agent list
-
-# 3. Other scripts also auto-load session
-python scripts/todo.py --project-id <pid> list
-python scripts/execute_strategic.py --project-id <pid> --list
-python scripts/fetch_file.py --project-id <pid> --path "outputs/report.md"
 ```
+list all workflows
+create a project called "Market Analysis"
+show me the running tasks
+```
+
+Claude will automatically handle session management, authentication, and API calls.
+If no session exists, it will prompt you for login credentials.
 
 ## Skills (7)
 
@@ -45,7 +41,7 @@ python scripts/fetch_file.py --project-id <pid> --path "outputs/report.md"
 | `strategic-workflow` | Strategic analysis workflows — competitiveness reports, scorecards, etc. |
 | `todo` | Todo task management — create, dispatch, remind, track follow-ups |
 | `project-file-reader` | Read project workspace files via relative paths |
-| `erp-data` | ERP financial data queries (临时直连方案，后续迁移到后端) |
+| `erp-data` | ERP financial data queries (temporary direct connection, will migrate to backend) |
 
 ## Agents (1)
 
@@ -61,8 +57,8 @@ python scripts/fetch_file.py --project-id <pid> --path "outputs/report.md"
 | `execute_strategic.py` | Strategic workflow execution |
 | `todo.py` | Todo CRUD + dispatch + remind |
 | `fetch_file.py` | Project file reader |
-| `query_fin_report.py` | ERP financial report queries (临时) |
-| `dfa_erp_client.py` | ERP API client (临时) |
+| `query_fin_report.py` | ERP financial report queries (temporary) |
+| `dfa_erp_client.py` | ERP API client (temporary) |
 
 ## Session Management
 
