@@ -10,6 +10,18 @@ Personal Claude Code plugins and skills collection by [GuoxinShan](https://githu
 
 ## Install
 
+### Option 1: `/plugins` command (recommended)
+
+In Claude Code, run:
+
+```
+/plugins install GuoxinShan/claude-plugins
+```
+
+Then enable the plugin and restart.
+
+### Option 2: Manual config
+
 Add to your `~/.claude/settings.json`:
 
 ```json
