@@ -1,14 +1,24 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "claude-plugins",
   "description": "Personal Claude Code plugins collection",
+  "version": "0.1.0",
   "owner": {
-    "name": "GuoxinShan"
+    "name": "GuoxinShan",
+    "email": "rockshan3906@gmail.com"
   },
   "plugins": [
     {
       "name": "codebase-docs",
       "source": "./codebase-docs",
-      "description": "Automated codebase documentation with progressive disclosure"
+      "description": "Automated codebase documentation with progressive disclosure — scan, organize, index, and navigate project docs",
+      "version": "0.1.0",
+      "author": {
+        "name": "GuoxinShan",
+        "email": "rockshan3906@gmail.com"
+      },
+      "category": "productivity",
+      "tags": ["documentation", "codebase-analysis", "progressive-disclosure"]
     }
   ]
 }
